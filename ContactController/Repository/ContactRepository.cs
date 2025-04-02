@@ -10,6 +10,10 @@ namespace ContactController.Repository
         {
             _bancoContext = bancoContext;
         }
+        public ContactModel GetContact(int? id)
+        {
+            return _bancoContext.Contact.FirstOrDefault(X => X.Id == id);
+        }
 
         public List<ContactModel> SearchAll()
         {
@@ -22,6 +26,23 @@ namespace ContactController.Repository
             _bancoContext.SaveChanges();
 
              return contact;
+        }
+
+        public ContactModel Update(ContactModel contact)
+        {
+            // update row in table contact
+            ContactModel contactModel = GetContact(contact.Id);
+
+            if (contactModel == null) throw new Exception("Error in updated Contact");
+
+            contactModel.Name = contact.Name;
+            contactModel.Email = contact.Email;
+            contactModel.Phone = contact.Phone;
+
+            _bancoContext.Contact.Update(contactModel);
+            _bancoContext.SaveChanges();
+
+            return contactModel;
         }
     }
 }

@@ -18,23 +18,33 @@ namespace ContactController.Controllers
 
             return View(contacts);
         }
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            return View();
-        }
-        public IActionResult Edit()
-        {
-            return View();
+            if (id == null)
+            {
+                return View();
+            }
+            else
+            {
+                ContactModel contact = _contactRepository.GetContact(id);
+                return View(contact);
+            }
         }
         public IActionResult ConfirmDelete()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Add(ContactModel contact)
+        public IActionResult AddOrUpdate(ContactModel contact)
         {
-            _contactRepository.Add(contact);
-
+            if (contact.Id == 0 || contact.Id == int.MinValue)
+            {
+                _contactRepository.Add(contact);
+            }
+            else
+            {
+                _contactRepository.Update(contact);
+            }
             return RedirectToAction("Index");
         }
     }
