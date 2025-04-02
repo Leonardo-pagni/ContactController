@@ -9,6 +9,7 @@ namespace ContactController.Repository
         ContactModel Add(ContactModel contact);
 
         ContactModel Update(ContactModel contact);
+        bool Delete(int id);
 
     }
 }

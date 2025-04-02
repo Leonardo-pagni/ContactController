@@ -1,10 +1,29 @@
-﻿@{
+﻿@model ContactModel
+@{
     ViewData["Title"] = "Confirm Delete";
 }
 
 <div class="texte-center">
-    <h3>Do you want to delete the Contact (Pagni)?</h3>
-</div>
+    <h3>Do you want to delete the Contact (@Model.Name)?</h3>
 
-<a class="btn btn-primary" role="button" asp-controller="Contact" asp-action="Delete">Confirm</a>
-<a class="btn btn-danger" role="button" asp-controller="Contact" asp-action="Index">Cancel</a>
+    <form method="post" asp-controller="Contact" asp-action="Delete" onsubmit="return closeAfterSubmit(this);">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+
+    <a class="btn btn-danger" role="button" asp-controller="Contact" asp-action="Index" onclick="window.close(); return false;">Cancel</a>
+</div>
+<script>
+    function closeAfterSubmit(form) {
+        fetch(form.action, {
+            method: form.method,
+            body: new FormData(form)
+        }).then(response => {
+            if (response.ok) {
+                window.opener.location.reload(); 
+                window.close(); 
+            }
+        });
+        return false; 
+    }
+</script>

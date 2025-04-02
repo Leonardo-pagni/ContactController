@@ -1,5 +1,7 @@
 ﻿using ContactController.Data;
 using ContactController.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ContactController.Repository
 {
@@ -43,6 +45,18 @@ namespace ContactController.Repository
             _bancoContext.SaveChanges();
 
             return contactModel;
+        }
+
+        public bool Delete(int id)
+        {
+            ContactModel contact = _bancoContext.Contact.FirstOrDefault(x => x.Id == id);
+
+            if (contact == null) throw new Exception("Error in deleted Contact");
+
+            _bancoContext.Contact.Remove(contact);
+            _bancoContext.SaveChanges();
+
+            return true;
         }
     }
 }
