@@ -10,6 +10,11 @@ namespace ContactController.Repository
         {
             _bancoContext = bancoContext;
         }
+
+        public List<ContactModel> SearchAll()
+        {
+               return _bancoContext.Contact.ToList();
+        }
         public ContactModel Add(ContactModel contact)
         {
             // insert into Contact

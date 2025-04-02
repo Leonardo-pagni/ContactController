@@ -13,7 +13,10 @@ namespace ContactController.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            List<ContactModel> contacts = _contactRepository.SearchAll();
+
+
+            return View(contacts);
         }
         public IActionResult Create()
         {
