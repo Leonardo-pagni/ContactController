@@ -18,7 +18,7 @@ namespace ContactController.Controllers
 
             return View(contacts);
         }
-        public IActionResult Create(int? id)
+        public IActionResult Create(int? id, ContactModel model)
         {
             if (id == null)
             {
@@ -30,6 +30,7 @@ namespace ContactController.Controllers
                 return View(contact);
             }
         }
+
         public IActionResult ConfirmDelete(int id)
         {
             ContactModel contact = _contactRepository.GetContact(id);
@@ -40,15 +41,20 @@ namespace ContactController.Controllers
         [HttpPost]
         public IActionResult AddOrUpdate(ContactModel contact)
         {
-            if (contact.Id == 0 || contact.Id == int.MinValue)
+            if (ModelState.IsValid)
             {
-                _contactRepository.Add(contact);
+                if (contact.Id == 0 || contact.Id == int.MinValue)
+                {
+                    _contactRepository.Add(contact);
+                }
+                else
+                {
+                    _contactRepository.Update(contact);
+                }
+                return RedirectToAction("Index");
             }
-            else
-            {
-                _contactRepository.Update(contact);
-            }
-            return RedirectToAction("Index");
+
+            return View("Create", contact);
         }
 
         [HttpPost]
