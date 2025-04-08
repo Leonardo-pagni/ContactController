@@ -41,6 +41,8 @@ namespace ContactController.Controllers
         [HttpPost]
         public IActionResult AddOrUpdate(ContactModel contact)
         {
+            ModelState.Remove("Id");
+
             if (ModelState.IsValid)
             {
                 if (contact.Id == 0 || contact.Id == int.MinValue)
