@@ -12,6 +12,9 @@ builder.Services.AddEntityFrameworkSqlServer()
 
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

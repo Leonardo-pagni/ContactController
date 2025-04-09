@@ -1,0 +1,29 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Confirm Delete";
+}
+
+<div class="texte-center">
+    <h3>Do you want to delete the User (@Model.Name)?</h3>
+
+    <form method="post" asp-controller="User" asp-action="Delete" onsubmit="return closeAfterSubmit(this);">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+
+    <a class="btn btn-danger" role="button" asp-controller="User" asp-action="Index" onclick="window.close(); return false;">Cancel</a>
+</div>
+<script>
+    function closeAfterSubmit(form) {
+        fetch(form.action, {
+            method: form.method,
+            body: new FormData(form)
+        }).then(response => {
+            if (response.ok) {
+                window.opener.location.reload();
+                window.close();
+            }
+        });
+        return false;
+    }
+</script>

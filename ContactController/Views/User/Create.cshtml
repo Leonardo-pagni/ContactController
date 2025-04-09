@@ -1,0 +1,43 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Add User";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Register User</h1>
+</div>
+
+
+<form asp-controller="User" asp-action="AddOrUpdate" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" asp-for="Name" id="Name" class="form-control" placeholder="Enter User Name">
+    </div>
+
+    <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="text" asp-for="Email" id="Email" class="form-control" placeholder="Enter User E-mail">
+    </div>
+
+    <div class="form-group">
+        <label for="Login">Login</label>
+        <input type="text" asp-for="Login" id="Login" class="form-control" placeholder="Enter User Login">
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password</label>
+        @{
+            var isDisabled = Model != null ? "disabled" : "";
+        }
+        <input type="password" name="Password" id="Password" value="@Model?.Password" class="form-control" placeholder="Enter User Password" @isDisabled />
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Confirm</button>
+        <a class="btn btn-secondary" asp-controller="User" asp-action="Index" role="button">Cancel</a>
+    </div>
+</form>

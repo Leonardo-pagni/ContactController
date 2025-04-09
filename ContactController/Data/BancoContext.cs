@@ -9,5 +9,6 @@ namespace ContactController.Data
         { }
 
         public DbSet<ContactModel> Contact { get; set; }
+        public DbSet<UserModel> Users { get; set; }
     }
 }
