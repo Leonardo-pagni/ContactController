@@ -1,4 +1,5 @@
-﻿@model UserModel
+﻿@using ContactController.Enums
+@model UserModel
 @{
     ViewData["Title"] = "Add User";
 }
@@ -28,16 +29,31 @@
         <input type="text" asp-for="Login" id="Login" class="form-control" placeholder="Enter User Login">
     </div>
 
+    @if (@Model == null)
+    {
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <input type="password" asp-for="Password" id="password" class="form-control" placeholder="Enter User Password">
+        </div>
+    }
     <div class="form-group">
-        <label for="Password">Password</label>
-        @{
-            var isDisabled = Model != null ? "disabled" : "";
-        }
-        <input type="password" name="Password" id="Password" value="@Model?.Password" class="form-control" placeholder="Enter User Password" @isDisabled />
+        <label for"perfil" class="form-label">Perfil</label>
+        <select asp-for="Profile" class="form-control">
+            <option value="0">Selecione</option>
+            <option value="@((int)ProfileEnum.Admin)">Administrator</option>
+            <option value="@((int)ProfileEnum.Standard)">Standard</option>
+        </select>
     </div>
 
     <div class="text-center">
         <button type="submit" class="btn btn-primary">Confirm</button>
         <a class="btn btn-secondary" asp-controller="User" asp-action="Index" role="button">Cancel</a>
     </div>
+
+    @if (@Model != null && @Model.UpdatedDate != null)
+    {
+        <div class="text-right">
+            <label for="UpdatedDate">Updated Date: @Model.UpdatedDate</label>
+        </div>
+    }
 </form>

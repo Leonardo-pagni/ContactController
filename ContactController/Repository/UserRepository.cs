@@ -33,11 +33,11 @@ namespace ContactController.Repository
 
             if (model == null) throw new Exception("Error in updated User");
 
-            model.Name = model.Name;
-            model.Email = model.Email;
-            model.Login = model.Login;
-            model.Password = model.Password;
+            model.Name = user.Name;
+            model.Email = user.Email;
+            model.Login = user.Login;
             model.UpdatedDate = DateTime.Now;
+            model.Profile = user.Profile;
 
             _context.Users.Update(model);
             _context.SaveChanges();
