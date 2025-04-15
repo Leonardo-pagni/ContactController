@@ -1,6 +1,9 @@
 ﻿using ContactController.Models;
 using ContactController.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
+using ISession = ContactController.Helper.ISession;
+
 
 namespace ContactController.Controllers
 {
@@ -8,13 +11,25 @@ namespace ContactController.Controllers
     {
 
         private readonly IUserRepository _userRepository;
-        public LoginController(IUserRepository userRepository)
+        private readonly ISession _ISession;
+        public LoginController(IUserRepository userRepository, ISession session)
         {
             _userRepository = userRepository;
+            _ISession = session;
         }
         public IActionResult Index()
         {
+            //se o usuario estiver logado, redirecionar para a home
+            if (_ISession.GetUserSession() != null) return RedirectToAction("Index", "Home");
+
             return View();
+        }
+
+        public IActionResult Exit()
+        {
+            _ISession.RemoveUserSession();
+
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]
@@ -30,6 +45,7 @@ namespace ContactController.Controllers
                     {
                         if (user.PasswordIsValid(loginModel.Password))
                         {
+                            _ISession.CreateUserSession(user);
                             return RedirectToAction("Index", "Home");
                         }
                         else
