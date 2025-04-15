@@ -12,5 +12,10 @@ namespace ContactController.Models
         public string Password { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+
+        public bool PasswordIsValid(string Password)
+        {
+            return this.Password == Password;
+        }
     }
 }

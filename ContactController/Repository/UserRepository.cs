@@ -11,6 +11,10 @@ namespace ContactController.Repository
         {
             _context = context;
         }
+        public UserModel SearchForLogin(string Login)
+        {
+            return _context.Users.FirstOrDefault(X => X.Login.ToUpper() == Login.ToUpper());
+        }
 
         public UserModel GetUser(int? id)
         {
@@ -61,5 +65,7 @@ namespace ContactController.Repository
 
             return true;
         }
+
+     
     }
 }
