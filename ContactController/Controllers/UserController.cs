@@ -1,9 +1,11 @@
-﻿using ContactController.Models;
+﻿using ContactController.Filters;
+using ContactController.Models;
 using ContactController.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContactController.Controllers
 {
+    [RestrictPageForAdm]
     public class UserController : Controller
     {
         public readonly IUserRepository _userRepository;
