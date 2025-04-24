@@ -24,6 +24,7 @@ namespace ContactController.Repository
         public UserModel Add(UserModel user)
         {
             user.CreatedDate = DateTime.Now;
+            user.SetPasswordHash();
             _context.Users.Add(user);
             _context.SaveChanges();
 

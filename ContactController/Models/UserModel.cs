@@ -1,4 +1,5 @@
 ﻿using ContactController.Enums;
+using ContactController.Helper;
 
 namespace ContactController.Models
 {
@@ -15,7 +16,14 @@ namespace ContactController.Models
 
         public bool PasswordIsValid(string Password)
         {
+            Password = Password.GenerateHash();
+
             return this.Password == Password;
+        }
+
+        public void SetPasswordHash()
+        {
+            Password = Password.GenerateHash(); 
         }
     }
 }
