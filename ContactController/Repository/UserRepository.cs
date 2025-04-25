@@ -43,6 +43,7 @@ namespace ContactController.Repository
             model.Login = user.Login;
             model.UpdatedDate = DateTime.Now;
             model.Profile = user.Profile;
+            model.Password = user.Password;
 
             _context.Users.Update(model);
             _context.SaveChanges();

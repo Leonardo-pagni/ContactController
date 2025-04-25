@@ -9,6 +9,22 @@
         <a class="btn btn-primary" role="button" asp-controller="User" asp-action="Create">Add New User</a>
     </div>
 
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" data-bs-dismiss="alert" arial-label="Close">X</button>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" data-bs-dismiss="alert" arial-label="Close">X</button>
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
     <br />
 
     <h1 class="display-4">Users List</h1>
@@ -36,6 +52,10 @@
                             <div class="btn-group" role="group">
                                 <a role="button" class="btn btn-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Create">Edit</a>
                                 <a role="button" class="btn btn-danger" asp-route-id="@user.Id" asp-controller="User" asp-action="ConfirmDelete" onclick="window.open(this.href, 'ConfirmDelete', 'width=500,height=400,top=' + ((screen.height - 400) / 2) + ',left=' + ((screen.width - 500) / 2) + ',resizable=no,scrollbars=no,status=no'); return false;">Delete</a>
+                                <form asp-action="NewPassword" asp-controller="User" method="post">
+                                    <input type="hidden" name="id" value="@user.Id" />
+                                    <button type="submit" class="btn btn-primary">Reset Password</button>
+                                </form>
                             </div>
                         </td>
                     </tr>

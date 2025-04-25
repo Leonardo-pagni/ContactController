@@ -60,5 +60,25 @@ namespace ContactController.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult NewPassword(int id)
+        {
+            UserModel model = _userRepository.GetUser(id);
+
+            try
+            {
+                string newPassword = model.GenerateNewPassword();
+
+                _userRepository.Update(model);
+                TempData["SuccessMessage"] = $"Password Reseted. New Password: {newPassword}";
+            }
+            catch(Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error. error details: {ex.Message}";
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
