@@ -13,6 +13,8 @@ namespace ContactController.Models
         [Required(ErrorMessage = "Phone is required")]
         [RegularExpression(@"\(\d{2}\)\s\d{5}-\d{4}", ErrorMessage = "Phone must be in the format (99) 99999-9999")]
         public string Phone { get; set; }
+        public int? UserId { get; set; }
+        public UserModel User { get; set; }
 
     }
 }

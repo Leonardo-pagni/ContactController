@@ -14,6 +14,7 @@ namespace ContactController.Models
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
 
+        public virtual List<ContactModel> Contacts { get; set; }
         public bool PasswordIsValid(string Password)
         {
             Password = Password.GenerateHash();

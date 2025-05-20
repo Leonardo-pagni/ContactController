@@ -1,4 +1,5 @@
 ﻿using ContactController.Filters;
+using ContactController.Helper;
 using ContactController.Models;
 using ContactController.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +11,16 @@ namespace ContactController.Controllers
     {
 
         private readonly IContactRepository _contactRepository;
-        public ContactController(IContactRepository contactRepository)
+        private readonly Helper.ISession _session;
+        public ContactController(IContactRepository contactRepository, Helper.ISession session)
         {
             _contactRepository = contactRepository;
+            _session = session;
         }
         public IActionResult Index()
         {
-            List<ContactModel> contacts = _contactRepository.SearchAll();
+            UserModel user = _session.GetUserSession();
+            List<ContactModel> contacts = _contactRepository.SearchAll(user.Id);
 
 
             return View(contacts);
@@ -45,6 +49,10 @@ namespace ContactController.Controllers
         public IActionResult AddOrUpdate(ContactModel contact)
         {
             ModelState.Remove("Id");
+            ModelState.Remove("user");
+
+            UserModel user = _session.GetUserSession();
+            contact.UserId = user.Id;
 
             if (ModelState.IsValid)
             {

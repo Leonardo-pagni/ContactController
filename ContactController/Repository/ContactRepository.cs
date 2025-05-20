@@ -17,9 +17,9 @@ namespace ContactController.Repository
             return _bancoContext.Contact.FirstOrDefault(X => X.Id == id);
         }
 
-        public List<ContactModel> SearchAll()
+        public List<ContactModel> SearchAll(int UserId)
         {
-               return _bancoContext.Contact.ToList();
+               return _bancoContext.Contact.Where(x => x.UserId == UserId).ToList();
         }
         public ContactModel Add(ContactModel contact)
         {
