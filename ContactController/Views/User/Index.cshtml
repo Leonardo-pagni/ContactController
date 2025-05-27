@@ -35,6 +35,7 @@
                 <th scope="col" class="text-center">Name</th>
                 <th scope="col" class="text-center">E-mail</th>
                 <th scope="col" class="text-center">Creation Date</th>
+                <th scope="col" class="text-center"> Total contacts</th>
                 <th scope="col" class="text-center">Actions</th>
             </tr>
         </thead>
@@ -48,6 +49,11 @@
                         <td>@user.Name</td>
                         <td>@user.Email</td>
                         <td>@user.CreatedDate.ToString("dd/MM/yyyy")</td>
+                        <td class="text-center">
+                            <a href="javascript:" data-user-id="@user.Id" class="btn btn-success btn-sm btn-total-contacts">
+                                @(user.Contacts != null && user.Contacts.Any() ? user.Contacts.Count() : 0)
+                            </a>
+                        </td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a role="button" class="btn btn-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Create">Edit</a>
@@ -63,4 +69,20 @@
             }
         </tbody>
     </table>
+
+
+
+    <div id="modalContactsUsers" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Contacts Count</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="listContactsUser"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

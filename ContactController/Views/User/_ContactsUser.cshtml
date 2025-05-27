@@ -1,0 +1,30 @@
+﻿@model List<ContactModel>
+
+
+<table class="table" id="table-modal-contacts">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+      @if(Model != null && Model.Any())
+        {
+            @foreach (var contact in Model)
+            {
+                <tr>
+                    <th scope="row">@contact.Id</th>
+                    <td>@contact.Name</td>
+                    <td>@contact.Email</td>
+                    <td>@contact.Phone</td>
+                </tr>
+            }
+        }else
+        {
+            <tr class="odd"><td valign="top" colsplan="4">No contacts Found</td></tr>
+        }
+    </tbody>
+</table>

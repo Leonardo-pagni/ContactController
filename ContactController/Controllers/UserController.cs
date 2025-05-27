@@ -9,9 +9,11 @@ namespace ContactController.Controllers
     public class UserController : Controller
     {
         public readonly IUserRepository _userRepository;
-        public UserController(IUserRepository userRepository)
+        private readonly IContactRepository _contactRepository;
+        public UserController(IUserRepository userRepository, IContactRepository contactRepository)
         { 
             _userRepository = userRepository;
+            _contactRepository = contactRepository;
         }
         public IActionResult Index()
         {
@@ -38,6 +40,12 @@ namespace ContactController.Controllers
                 return View(user);
             }
         }
+        public IActionResult ListContactsPerUserId(int userId)
+        {
+            List<ContactModel> contacts = _contactRepository.SearchAll(userId);
+            return PartialView("_ContactsUser", contacts);
+        }
+
         [HttpPost]
         public IActionResult AddOrUpdate(UserModel model)
         {

@@ -1,6 +1,19 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
+    $('#table-contacts').DataTable();
 
-// Write your JavaScript code.
+    $('.btn-total-contacts').click(function () {
+        var userId = $(this).data('user-id');
+        console.log(userId);
 
-let table = new DataTable('#table-contacts');
+        $.ajax({
+            type: 'GET',
+            url: '/User/ListContactsPerUserId?userId=' + userId
+            , success: function (result) {
+                $("#listContactsUser").html(result);
+                var modal = new bootstrap.Modal(document.getElementById('modalContactsUsers'));
+                $('#table-modal-contacts').DataTable();
+                modal.show();
+            }
+        });
+    });
+});

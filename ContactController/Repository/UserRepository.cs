@@ -1,5 +1,6 @@
 ﻿using ContactController.Data;
 using ContactController.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactController.Repository
 {
@@ -53,7 +54,9 @@ namespace ContactController.Repository
 
         public List<UserModel> SearchAll()
         {
-            return _context.Users.ToList();
+            return _context.Users
+                .Include(x => x.Contacts)
+                .ToList();
         }
 
         public Boolean Delete(int id)
