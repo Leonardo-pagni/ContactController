@@ -2,13 +2,16 @@ Sistema para gerenciamento de contatos utilizando modelo MVC .NET, Entity Framew
 
 🔧 Principais funcionalidades:
 
-CRUD de contatos e usuários
-Tela de login com autenticação
-Controle de perfis de acesso (administrador e padrão)
-Uso de filters para organização e segurança
-Injeção de dependência para manter o código limpo e modular
-Integração com Entity Framework para persistência de dados
-Interface responsiva utilizando Bootstrap
+- CRUD de contatos e usuários
+- Tela de login com autenticação
+- Controle de perfis de acesso (administrador e padrão)
+- Uso de filters para organização e segurança
+- Injeção de dependência para manter o código limpo e modular
+- Integração com Entity Framework para persistência de dados
+- Interface responsiva utilizando Bootstrap
+- Modal injetando uma PartialView em um popUp
+- Alteração de senhas por usuário dos perfís ADMIN
+
 
 <h1>tela de pesquisa de contato</h1>
 ![contato pesquisa](https://github.com/user-attachments/assets/2af8b106-12f1-45b2-9197-4be5cdf54847)
