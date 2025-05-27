@@ -44,7 +44,8 @@ namespace ContactController.Repository
             model.Login = user.Login;
             model.UpdatedDate = DateTime.Now;
             model.Profile = user.Profile;
-            model.Password = user.Password;
+            model.Password = user.Password != null ? user.Password : model.Password;
+            model.RestoredPassword = user.RestoredPassword;
 
             _context.Users.Update(model);
             _context.SaveChanges();

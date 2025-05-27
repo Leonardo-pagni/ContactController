@@ -77,6 +77,7 @@ namespace ContactController.Controllers
             try
             {
                 string newPassword = model.GenerateNewPassword();
+                model.RestoredPassword = true;
 
                 _userRepository.Update(model);
                 TempData["SuccessMessage"] = $"Password Reseted. New Password: {newPassword}";

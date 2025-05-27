@@ -13,6 +13,7 @@ namespace ContactController.Models
         public string Password { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public bool RestoredPassword { get; set; }
 
         public virtual List<ContactModel> Contacts { get; set; }
         public bool PasswordIsValid(string Password)

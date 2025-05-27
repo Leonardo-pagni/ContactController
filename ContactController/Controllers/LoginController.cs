@@ -25,6 +25,11 @@ namespace ContactController.Controllers
             return View();
         }
 
+        public IActionResult NewPassword()
+        {
+            return View();
+        }
+
         public IActionResult Exit()
         {
             _ISession.RemoveUserSession();
@@ -46,6 +51,10 @@ namespace ContactController.Controllers
                         if (user.PasswordIsValid(loginModel.Password))
                         {
                             _ISession.CreateUserSession(user);
+                            if(user.RestoredPassword == true)
+                            {
+                                return View("NewPassword");
+                            }
                             return RedirectToAction("Index", "Home");
                         }
                         else
@@ -59,6 +68,32 @@ namespace ContactController.Controllers
                     }
                 }
 
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"We were unable to log you in. Error details: " + ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+        [HttpPost]
+        public IActionResult ConrfirmPassword(LoginModel loginModel)
+        {
+            try
+            {
+                UserModel user = _userRepository.SearchForLogin(loginModel.Login);
+
+                if(user != null)
+                {
+                    user.Password = loginModel.Password;
+                    user.RestoredPassword = false;
+                    user.SetPasswordHash();
+
+                    _userRepository.Update(user);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                TempData["ErrorMessage"] = $"User is invalid. Try again";
                 return View("Index");
             }
             catch (Exception ex)
